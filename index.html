@@ -3,26 +3,44 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ONSCREEN — Free Creative Tools</title>
+  <title>ONSCREEN — Free Creative Tools & Assets</title>
   
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link rel="shortcut icon" href="D:\Madam Angela\new2\New folder\Assets\glowing-circle-frame-free-png.png" type="image/x-icon">
+  <link rel="shortcut icon" href="glowing-circle-frame-free-png.png" type="image/x-icon">
   
   <style>
     /* Global Styles */
     :root {
       --primary: #00ffe7;
       --secondary: #6f00ff;
-      --dark-bg: #090e17;
+      /* Define futuristic background variables */
+      --futuristic-bg-1: #020a1c;
+      --futuristic-bg-2: #0d1a3a;
+      --futuristic-bg-3: #010614;
     }
 
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #090e17, #131b2f, #0f172a);
+      /* New, complex multi-stop futuristic background gradient */
+      background: linear-gradient(160deg, var(--futuristic-bg-1) 0%, var(--futuristic-bg-2) 25%, var(--futuristic-bg-3) 50%, var(--futuristic-bg-2) 75%, var(--futuristic-bg-1) 100%);
       color: #fff;
       overflow-x: hidden; /* Prevents scrollbars during animation */
+      position: relative; /* For wave and grid overlay */
+    }
+
+    /* Subtle grid overlay to enhance futuristic feel */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      z-index: -1;
+      pointer-events: none; /* Let clicks pass through */
     }
 
     /* Dropdown Menu Styling */
@@ -94,19 +112,23 @@
       padding-left: 2rem;
     }
 
-    /* Hero Header */
+    /* Hero Header Update with New Image Path */
     header {
       text-align: center;
       padding: 8rem 2rem 6rem;
-      background: url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2070') center/cover no-repeat;
+      /* Pointing to your local assets folder */
+      background: url('assets/1.jpg') center/cover no-repeat;
       position: relative;
+      /* Ensures content is prominent */
+      z-index: 1; 
     }
 
     header::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(to bottom, rgba(9, 14, 23, 0.7), rgba(9, 14, 23, 1));
+      /* Adjusted overlay for new image, slightly less dark */
+      background: linear-gradient(to bottom, rgba(9, 14, 23, 0.5), rgba(9, 14, 23, 0.85));
       z-index: 0;
     }
 
@@ -320,11 +342,57 @@
       color: #666;
       border-top: 1px solid rgba(255, 255, 255, 0.05);
       margin-top: 4rem;
+      /* Ensure it sits above the new wave if possible */
+      position: relative;
+      z-index: 50; 
     }
 
     footer span {
       color: var(--primary);
     }
+
+    /* --- New Glowing RGB Moving Wave Section --- */
+
+    /* Container for the wave structure */
+    .rgb-wave-container {
+      position: fixed; /* Fix it to the screen bottom */
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 20px; /* Adjust height of the visual wave bar */
+      z-index: 200; /* High z-index to sit on top of everything */
+      overflow: hidden; /* Prevent visual overflow */
+      pointer-events: none; /* Let clicks pass through to the page */
+    }
+
+    /* The visual structure itself, generating the wave look and motion */
+    .rgb-wave {
+      width: 200%; /* Stretch for animation */
+      height: 100%;
+      /* Gradient creating the RGB colors */
+      background: repeating-linear-gradient(
+        to right,
+        var(--primary) 0%,
+        var(--secondary) 25%,
+        var(--primary) 50%,
+        var(--secondary) 75%,
+        var(--primary) 100%
+      );
+      /* Add strong glow to make it look like a glowing structure */
+      box-shadow: 
+        0 -5px 15px 1px var(--primary), 
+        0 -10px 30px 2px var(--secondary),
+        inset 0 0 5px rgba(255, 255, 255, 0.3); /* Add bright core glow */
+      opacity: 0.9;
+      animation: rgbWaveFlow 4s linear infinite; /* Movement animation */
+    }
+
+    /* Animation defining the continuous flowing motion */
+    @keyframes rgbWaveFlow {
+      0% { background-position: 200% 0; }
+      100% { background-position: 0 0; }
+    }
+
   </style>
 </head>
 <body>
@@ -489,6 +557,10 @@
   <footer>
     Built with <span>💡</span> by Sudipto & Copilot — remixing creativity onscreen.
   </footer>
+
+  <div class="rgb-wave-container">
+    <div class="rgb-wave"></div>
+  </div>
 
   <script>
     const alienToggle = document.getElementById("alienToggle");
